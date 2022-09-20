@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
+import matplotlib.pyplot as plt
 
 #get_ipython().run_line_magic('matplotlib', 'inline')
 
@@ -12,7 +12,7 @@
 # hand-written digits, from 0-9.
 # 
 
-# In[17]:
+
 
 
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
@@ -46,7 +46,7 @@ import pandas as pd
 # 
 # 
 
-# In[18]:
+
 
 
 digits = datasets.load_digits()
@@ -73,8 +73,6 @@ for ax, image, label in zip(axes, digits.images, digits.target):
 # 
 # 
 
-# In[19]:
-
 
 # flatten the images
 n_samples = len(digits.images)
@@ -85,7 +83,7 @@ gammas = [0.01, 0.005, 0.001, 0.0005, 0.0001]
 Cs =  [0.1, 0.2, 0.5, 0.7, 1, 2, 5, 7, 10]
 
 
-# In[20]:
+
 
 
 digits = datasets.load_digits()
@@ -97,7 +95,7 @@ plt.show()
 print(digits.images[0].size)
 
 
-# In[21]:
+
 
 
 #PART:Sanity check visualization of the data
@@ -108,7 +106,7 @@ for ax, image, label in zip(axes, digits.images, digits.target):
     ax.set_title("Training: %i" % label)
 
 
-# In[22]:
+
 
 
 n_samples = len(digits.images)
@@ -128,7 +126,7 @@ X_test,X_dev, y_test,y_dev = train_test_split(
 )
 
 
-# In[23]:
+
 
 
 df =pd.DataFrame()
@@ -162,7 +160,7 @@ df['Accuracy'] = acc
 df
 
 
-# In[24]:
+
 
 
 from PIL import Image
@@ -177,30 +175,14 @@ for ax, image, prediction in zip(axes, X_test, predicted):
 
 
     ax.set_title(f"Prediction  : {prediction}" f"ImageSize: {image.size}")
-    print("the image with the size" f"Prediction: {prediction}" f"image_resized :{image_resized}\n")
+    print("the image with the size" f"Prediction: {prediction}" f"resized :{image_resized}\n")
+    
 
-
-# In[25]:
 
 
 ac= df['Accuracy']
 maximum = ac.max()
 index = ac.idxmax()
 
-print("The best test score is ", maximum," corresponding to hyperparameters gamma= ",pg[index]," C=",pc[index])
-
-
-# Below we visualize the first 4 test samples and show their predicted
-# digit value in the title.
-# 
-# 
-
-# :func:`~sklearn.metrics.classification_report` builds a text report showing
-# the main classification metrics.
-# 
-# 
-
-# We can also plot a `confusion matrix <confusion_matrix>` of the
-# true digit values and the predicted digit values.
-# 
-# 
+print("The best test score is ", maximum," hyperparameters gamma= ",pg[index]," C=",pc[index])
+ 
