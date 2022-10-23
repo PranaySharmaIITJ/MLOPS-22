@@ -7,7 +7,7 @@ from sklearn import datasets
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 
 # import utils
-from src.utils import preprocess, data_split, get_scores, digitsClassifier, save_model
+from utils import preprocess, data_split, get_scores, digitsClassifier, save_model
 
 
 # random classifier
