@@ -1,7 +1,9 @@
 import numpy as np
 import pickle
+
 # Import datasets, classifiers and performance metrics
 from sklearn import datasets, svm, metrics
+from sklearn import tree
 
 # Importing rescale, resize, reshape
 from skimage.transform import rescale, resize, downscale_local_mean 
@@ -25,21 +27,23 @@ def preprocess(data, scale_factor=1):
     return img_rescaled
 
 
-def data_split(x, y, train_size=0.7, test_size=0.15, val_size=0.15):
-    if train_size + test_size + val_size != 1:
-        print("Invalid ratios: train:test:val split isn't 1!")
-        return -1
+def data_split(x, y, train_size=0.7, test_size=0.2, val_size=0.1, debug=True):
+    # if train_size + test_size + val_size != 1:
+    #     print("Invalid ratios: train:test:val split isn't 1!")
+    #     return -1
     
+    # print("\n from data split:", x.shape, y.shape,train_size, test_size, val_size)
     # split data into train and (test + val) subsets
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=(test_size + val_size), shuffle=False)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=(test_size + val_size))
 
     # split test into test and val
-    x_test, x_val, y_test, y_val = train_test_split(x_test, y_test, test_size=val_size/((test_size + val_size)), shuffle=False)
+    x_test, x_val, y_test, y_val = train_test_split(x_test, y_test, test_size=val_size/((test_size + val_size)))
 
-    print("\n(x, y) shape:", x.shape, y.shape)
-    print("(x_train, y_train) shape:", x_train.shape, y_train.shape)
-    print("(x_test, y_test) shape:", x_test.shape, y_test.shape)
-    print("(x_val, y_val) shape:", x_val.shape, y_val.shape, end="\n\n")
+    if debug:
+        print("\n(x, y) shape:", x.shape, y.shape)
+        print("(x_train, y_train) shape:", x_train.shape, y_train.shape)
+        print("(x_test, y_test) shape:", x_test.shape, y_test.shape)
+        print("(x_val, y_val) shape:", x_val.shape, y_val.shape, end="\n\n")
 
     return x_train, x_test, x_val, y_train, y_test, y_val
 
@@ -55,12 +59,16 @@ def get_scores(clf, x, y):
     return [a, p, r, f1]
 
 
-def digitsClassifier(x, y, gamma=0.001):
+def digitsClassifier(x, y, gamma=0.001, kernel='rbf', C=1.0):
     # Create a classifier: a support vector classifier
-    clf = svm.SVC(gamma=gamma)
+    clf = svm.SVC(gamma=gamma, C=C, kernel=kernel)
     # Learn the digits on the train subset
     clf.fit(x, y)
+    return clf
 
+def decisionClassifier(x, y):
+    clf = tree.DecisionTreeClassifier()
+    clf.fit(x, y)
     return clf
 
 
