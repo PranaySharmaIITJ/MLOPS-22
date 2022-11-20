@@ -72,7 +72,7 @@ target = digits.target
 
 data = preprocess(data_org)
 
-SAVE_MODEL_PATH = "/models/svm_gamma=0.001_C=0.2.joblib"
+SAVE_MODEL_PATH = "best_svm_model.joblib"
 
 gammas = [0.001, 0.01]
 kernels = ["rbf", "linear"]
