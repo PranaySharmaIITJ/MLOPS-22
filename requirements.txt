@@ -5,3 +5,5 @@ pytest==6.2.5
 flask==2.0.1
 flask-restx==0.5.1
 nltk==3.6.5
+pandas
+joblib
