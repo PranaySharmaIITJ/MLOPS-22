@@ -37,7 +37,7 @@ def preprocess(data, scale_factor=1):
     return img_rescaled
 
 
-def data_split(x, y, train_size=0.7, test_size=0.2, val_size=0.1, debug=True):
+def data_split(x, y, train_size=0.8, test_size=0.2, val_size=0.1, debug=True):
     # if train_size + test_size + val_size != 1:
     #     print("Invalid ratios: train:test:val split isn't 1!")
     #     return -1
@@ -122,7 +122,7 @@ def test_model_writing():
     # train
     clf = digitsClassifier(x_train, y_train)
 
-    path = "../models/test_save_model.pkl"
+    path = 'best_svm_model.joblib'
     save_model(clf, path)
 
     assert os.path.isfile(path) == True, f"model not saved at {path}!"
