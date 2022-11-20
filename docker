@@ -1,0 +1,19 @@
+# syntax=docker/dockerfile:1
+
+# tell docker about the base image to use for the project
+# we can create our own base image as well
+FROM python:3.6-slim-buster
+
+# this tell docker to use this path for all subsequent commands, i.e. paths will be relative to this directory
+WORKDIR /app
+
+# will copy the requirements.txt from our folder to working directory /app of image
+COPY requirements.txt requirements.txt
+
+# install packages from the requirements.txt to image
+RUN pip install -r requirements.txt
+
+# copy all other things from our directory to image
+COPY . .
+
+CMD [ "python", "digits_classifier_hyper.py"]
